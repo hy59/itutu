@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>图书检索</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">取消</span>
+        <ion-icon name="md-close" showWhen="android"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+
+  <div *ngIf="notSearch">
+    <ion-list>
+      <ion-item>
+        <ion-select [(ngModel)]="selected">
+          <ion-label>检索项</ion-label>
+          <ion-option value="subject" selected="true">主题</ion-option>
+          <ion-option value="title">篇名</ion-option>
+          <ion-option value="author">作者</ion-option>
+          <ion-option value="publisher">单位</ion-option>
+          <ion-option value="keywords">关键词</ion-option>
+          <ion-option value="source">来源</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-searchbar placeholder="图书检索" [(ngModel)]="search"></ion-searchbar>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button ion-button color="primary" block (click)="searchBooksInfo(search)">检 索</button>
+    </div>
+
+
+    <ion-grid text-center>
+
+      <ion-row>
+        <p style="color: #4CD964;">检索历史</p>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-3 style="color: #999999;">主题</ion-col>
+        <ion-col col-9>数据分析</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <p>图书标签</p>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-3 style="color: red;">科目</ion-col>
+        <ion-col col-3>计算机</ion-col>
+        <ion-col col-3>土木工程</ion-col>
+        <ion-col col-3>生物工程</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-3></ion-col>
+        <ion-col col-3>化学</ion-col>
+        <ion-col col-3>经济金融</ion-col>
+        <ion-col col-3>法律</ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-3 style="color: red;">文学</ion-col>
+        <ion-col col-3>随笔</ion-col>
+        <ion-col col-3>童话</ion-col>
+        <ion-col col-3>名著</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-3></ion-col>
+        <ion-col col-3>诗歌</ion-col>
+        <ion-col col-3>散文</ion-col>
+        <ion-col col-3>戏剧</ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+
+  <div *ngIf="searched">
+    <ion-card *ngFor="let f of booksinfo">
+
+      <ion-item>
+        <h1>{{f?.booktitle}}</h1>
+        <p>评分</p>
+      </ion-item>
+      <div>
+        <ion-row>
+          <ion-col col-4>
+            <img src="{{f?.book_image}}">
+          </ion-col>
+          <ion-col col-8>
+            <ion-list no-border>
+              <ion-item>
+                作者
+                <ion-note item-end>
+                  {{f?.authors}}
+                </ion-note>
+              </ion-item>
+              <ion-item>
+                出版社
+                <ion-note item-end>
+                  {{f?.pub_house}}
+                </ion-note>
+              </ion-item>
+              <ion-item>
+                索书号
+                <ion-note item-end>
+                  {{f?.call_num}}
+                </ion-note>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-card>
+  </div>
+
+</ion-content>

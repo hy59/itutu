@@ -1,0 +1,172 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-searchbar placeholder="图书检索" [(ngModel)]="search"></ion-searchbar>
+    <ion-icon name="arrow-forward" class="top_header_message_icon" (tap)="searchBooksInfo(search)"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="notSearch">
+    <div class="floatMenu">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4 text-center>
+            <div (tap)="gotoSearch()">
+              <ion-icon name="create"></ion-icon> 图书检索
+            </div>
+          </ion-col>
+          <ion-col col-4 text-center>
+            <div>
+              <span style="float:left;color:#dddddd;">|</span>
+              <div (tap)="gotoFULink()">
+                <ion-icon name="albums"></ion-icon> FULink
+              </div>
+              <span style="float:right;color:#dddddd;">|</span>
+            </div>
+          </ion-col>
+          <ion-col col-4 text-center>
+            <div (tap)="gotoSearch()">
+              <ion-icon name="share-alt"></ion-icon> 数据库检索
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div>
+      <ion-slides [pager]="true" [loop]="true" autoplay="3000">
+
+        <ion-slide slide-zoom>
+          <img src="http://[2001:da8:270:2018:f816:3eff:fe66:11c]/media/loop/images/loop-1.jpg">
+          <img>
+        </ion-slide>
+
+        <ion-slide slide-zoom>
+          <img src="http://[2001:da8:270:2018:f816:3eff:fe66:11c]/media/loop/images/loop-2.jpg">
+          <img>
+        </ion-slide>
+
+        <ion-slide slide-zoom>
+          <img src="http://[2001:da8:270:2018:f816:3eff:fe66:11c]/media/loop/images/loop-3.jpg">
+          <img>
+        </ion-slide>
+
+        <ion-slide slide-zoom>
+          <img src="http://[2001:da8:270:2018:f816:3eff:fe66:11c]/media/loop/images/loop-4.jpg">
+          <img>
+        </ion-slide>
+
+      </ion-slides>
+    </div>
+
+    <p>新生专区</p>
+
+    <div>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4 text-center class="colnav" style="background: rgba(128,179,107,.9);">
+            <div (tap)="gotoReaderNote()">
+              读者指南
+            </div>
+          </ion-col>
+          <ion-col col-4 text-center class="colnav" style="background: rgba(237,133,80,.9);">
+            <div (tap)="gotoBooksDist()">
+              图书分布
+            </div>
+          </ion-col>
+          <ion-col col-4 text-center class="colnav" style="background: rgba(247,147,173,.9);">
+            <div (tap)="gotoAnother()">
+              机构设置
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <p>热门推荐</p>
+
+    <div>
+      <ion-slides [pager]="true" [loop]="true" autoplay="3000">
+
+        <ion-slide class="side-book">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-3 text-center class="book">
+                <img src="http://[2001:da8:270:2018:f816:3eff:fe66:11c]/media/books/images/commend_book_01.jpg">
+              </ion-col>
+              <ion-col col-3 text-center class="book">
+                <img src="http://[2001:da8:270:2018:f816:3eff:fe66:11c]/media/books/images/commend_book_02.jpg">
+              </ion-col>
+              <ion-col col-3 text-center class="book">
+                <img src="http://[2001:da8:270:2018:f816:3eff:fe66:11c]/media/books/images/commend_book_03.jpg">
+              </ion-col>
+              <ion-col col-3 text-center class="book">
+                <img src="http://[2001:da8:270:2018:f816:3eff:fe66:11c]/media/books/images/commend_book_04.jpg">
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-slide>
+
+        <ion-slide class="side-book">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-3 text-center class="book">
+                <img src="http://[2001:da8:270:2018:f816:3eff:fe66:11c]/media/books/images/commend_book_01.jpg">
+              </ion-col>
+              <ion-col col-3 text-center class="book">
+                <img src="http://[2001:da8:270:2018:f816:3eff:fe66:11c]/media/books/images/commend_book_02.jpg">
+              </ion-col>
+              <ion-col col-3 text-center class="book">
+                <img src="http://[2001:da8:270:2018:f816:3eff:fe66:11c]/media/books/images/commend_book_03.jpg">
+              </ion-col>
+              <ion-col col-3 text-center class="book">
+                <img src="http://[2001:da8:270:2018:f816:3eff:fe66:11c]/media/books/images/commend_book_04.jpg">
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-slide>
+
+      </ion-slides>
+    </div>
+  </div>
+
+  <div *ngIf="searched">
+    <ion-card *ngFor="let f of booksinfo">
+
+      <ion-item>
+        <h1>{{f?.booktitle}}</h1>
+        <p>评分</p>
+      </ion-item>
+      <div>
+        <ion-row>
+          <ion-col col-4>
+            <img src="{{f?.book_image}}">
+          </ion-col>
+          <ion-col col-8>
+            <ion-list no-border>
+              <ion-item>
+                作者
+                <ion-note item-end>
+                  {{f?.authors}}
+                </ion-note>
+              </ion-item>
+              <ion-item>
+                出版社
+                <ion-note item-end>
+                  {{f?.pub_house}}
+                </ion-note>
+              </ion-item>
+              <ion-item>
+                索书号
+                <ion-note item-end>
+                  {{f?.call_num}}
+                </ion-note>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>
